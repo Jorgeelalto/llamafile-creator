@@ -16,15 +16,15 @@ create the `workspace/` folder and do its things there, and will download toolin
 if required. It will also prompt you for llamafile arguments, although you can just
 use the defaults:
 
-| Parameter | Default |
-| --- | --- |
-| Context size | `0` (model's training context) |
-| Top-k | `40` |
-| Top-p | `0.95` |
-| Temperature | `0.8` |
-| Min-p | `0.05` |
-| Repetition penalty | `1.0` |
-| Maximum generated tokens | `-1` (unlimited) |
+| Parameter | Default | Description |
+| --- | --- | --- |
+| Context size | `0` (model's training context) | Tokens available for prompt and response; larger contexts use more memory. |
+| Top-k | `40` | Limits choices to the k most likely next tokens; `0` disables it. |
+| Top-p | `0.95` | Keeps the most likely tokens up to a cumulative probability of p; lower values restrict choices. |
+| Temperature | `0.8` | Higher values increase randomness; `0` chooses the most likely token. |
+| Min-p | `0.05` | Excludes tokens below this fraction of the most likely token's probability; `0` disables it. |
+| Repetition penalty | `1.0` | Values above `1` discourage repeated tokens; `1` disables it. |
+| Maximum generated tokens | `-1` (unlimited) | Limits response length, except in `--cli` mode. |
 
 ### Notes
 1. The context selected by `0` can require substantial memory.
