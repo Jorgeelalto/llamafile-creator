@@ -19,6 +19,7 @@ use the defaults:
 | Parameter | Default | Description |
 | --- | --- | --- |
 | Context size | `0` (model's training context) | Tokens available for prompt and response; larger contexts use more memory. |
+| 8-bit KV cache | Enabled | Quantizes both key and value caches to `q8_0`, reducing cache memory use with a possible quality trade-off. Enter `n` to use the runtime defaults. |
 | Top-k | `40` | Limits choices to the k most likely next tokens; `0` disables it. |
 | Top-p | `0.95` | Keeps the most likely tokens up to a cumulative probability of p; lower values restrict choices. |
 | Temperature | `0.8` | Higher values increase randomness; `0` chooses the most likely token. |
@@ -28,6 +29,7 @@ use the defaults:
 
 ### Notes
 1. The context selected by `0` can require substantial memory.
+1. 8-bit KV cache support depends on the model and runtime backend. Disable it if the generated llamafile cannot initialize the cache.
 1. In llamafile 0.10.6, `--cli` mode ignores the maximum generated tokens setting.
 1. Windows cannot run llamafile executables larger than 4 GB.
 

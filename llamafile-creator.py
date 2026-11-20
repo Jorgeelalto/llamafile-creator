@@ -63,6 +63,13 @@ def main():
         print("\nPress Enter to use each default.")
         print("Context size: tokens available for the prompt and response; larger values use more memory.")
         context = number("Context size (0 = model default)", "0", int, 0, 2**31 - 1)
+        print("8-bit KV cache: reduces cache memory usage, potentially at a small cost to quality.")
+        cache_choice = input("Enable 8-bit KV cache? [Y/n]: ").strip().lower()
+        if cache_choice not in ("", "y", "yes", "n", "no"):
+            raise ValueError("Enter yes or no for the 8-bit KV cache")
+        cache_args = [] if cache_choice in ("n", "no") else [
+            "--cache-type-k", "q8_0", "--cache-type-v", "q8_0"
+        ]
         print("Top-k: consider only the k most likely next tokens; lower values restrict choices (0 disables).")
         top_k = number("Top-k", "40", int, 0, 2**31 - 1)
         print("Top-p: keep the most likely tokens whose probabilities add up to p; lower values restrict choices.")
@@ -88,6 +95,7 @@ def main():
                 [
                     "-m", shlex.quote(f"/zip/{model.name}"),
                     "-c", context,
+                    *cache_args,
                     "--top-k", top_k,
                     "--top-p", top_p,
                     "--temp", temperature,
